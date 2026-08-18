@@ -8,6 +8,8 @@ import carOnLift from '../assets/photos/car-on-lift.jpg';
 import engineDetail from '../assets/photos/engine-detail.jpg';
 import tireService from '../assets/photos/tire-service.jpg';
 
+const baseURL = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+
 const services = [
   {
     number: '01',
@@ -473,7 +475,7 @@ const businessSchema = {
           </a>
         </div>
 
-        <form id="contact-form" action="/api/contact" method="post" class="reveal border border-white/20 bg-white/[0.035] p-6 md:p-10" novalidate>
+        <form id="contact-form" action={`${baseURL}api/contact`} method="post" class="reveal border border-white/20 bg-white/[0.035] p-6 md:p-10" novalidate>
           <div class="grid gap-x-8 gap-y-7 md:grid-cols-2">
             <div class="form-field">
               <label for="name">Your name *</label>
@@ -613,6 +615,12 @@ const businessSchema = {
     form?.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (!form.reportValidity() || !submitButton || !formStatus) return;
+
+      if (window.location.hostname.endsWith('.github.io')) {
+        formStatus.textContent = 'Online messages are not available on this preview host yet. Please call the shop at (507) 828-7206.';
+        formStatus.className = 'mt-5 border border-safety/60 bg-safety/10 px-4 py-3 text-sm text-[#ffd3b4]';
+        return;
+      }
 
       submitButton.disabled = true;
       submitButton.textContent = 'Sending…';

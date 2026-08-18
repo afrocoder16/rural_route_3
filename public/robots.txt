@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rr3auto.com/sitemap.xml
+Sitemap: https://afrocoder16.github.io/rural_route_3/sitemap.xml
