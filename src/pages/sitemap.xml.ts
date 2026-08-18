@@ -4,7 +4,8 @@ export const prerender = true;
 
 export const GET: APIRoute = ({ site }) => {
   const base = site ?? new URL('https://rr3auto.com');
-  const homepage = new URL('/', base).toString();
+  const basePath = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+  const homepage = new URL(basePath, base).toString();
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>

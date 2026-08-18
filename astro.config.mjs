@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: process.env.SITE_URL || 'https://rr3auto.com',
+  base: process.env.BASE_PATH || '/',
   output: 'hybrid',
   adapter: node({ mode: 'standalone' }),
   integrations: [tailwind({ applyBaseStyles: false })],
