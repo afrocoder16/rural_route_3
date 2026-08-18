@@ -1,0 +1,642 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import logo from '../assets/rr3-logo.jpg';
+import waitingRoom from '../assets/waiting-room.jpg';
+import mechanicEngine from '../assets/photos/mechanic-engine.jpg';
+import carOnLift from '../assets/photos/car-on-lift.jpg';
+import engineDetail from '../assets/photos/engine-detail.jpg';
+import tireService from '../assets/photos/tire-service.jpg';
+
+const services = [
+  {
+    number: '01',
+    title: 'Diagnostics',
+    description: 'Warning light on? Strange sound? We track the problem to its source before recommending a repair.',
+    path: 'M5 7h14v10H5z M8 10h2m4 0h2m-8 4h8 M9 4v3m6-3v3',
+    className: 'md:col-span-2 lg:col-span-2',
+  },
+  {
+    number: '02',
+    title: 'Brake service',
+    description: 'Inspection, pads, rotors, calipers, and hydraulic repairs for confident stops in every season.',
+    path: 'M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16Zm0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Z',
+  },
+  {
+    number: '03',
+    title: 'Engine repair',
+    description: 'Clear answers and capable repairs for performance, cooling, leaks, misfires, and more.',
+    path: 'M7 7h9l2 3v6H5V9h2V7Zm3-3h4v3m-5 5h5m5-1h2v4h-2',
+  },
+  {
+    number: '04',
+    title: 'Routine maintenance',
+    description: 'Oil, fluids, filters, belts, inspections, and scheduled care that helps your vehicle go the distance.',
+    path: 'M12 3v3m0 12v3M4.2 4.2l2.1 2.1m11.4 11.4 2.1 2.1M3 12h3m12 0h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z',
+  },
+  {
+    number: '05',
+    title: 'Winter prep',
+    description: 'Cold-weather checks, batteries, block heaters, fluids, and starting-system service built for Minnesota.',
+    path: 'M12 2v20M4 7l16 10M4 17 20 7M8 4l4 3 4-3M8 20l4-3 4 3',
+    className: 'md:col-span-2 lg:col-span-2',
+  },
+  {
+    number: '06',
+    title: 'Tires & alignment',
+    description: 'Tire service and alignment work to improve traction, ride quality, and even tread wear.',
+    path: 'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Zm0 4a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm0-4v4m0 10v4M3 12h4m10 0h4',
+  },
+  {
+    number: '07',
+    title: 'General repair',
+    description: 'Practical, full-service care for the cars, trucks, and SUVs that keep southwest Minnesota moving.',
+    path: 'm14 6 4-4 4 4-4 4m-3-1-8 8H3v4h4l8-8M4 16l4 4',
+    className: 'md:col-span-2 lg:col-span-4',
+  },
+];
+
+const credentials = [
+  { value: 'ASE', label: 'Certified shop', detail: 'Recognized technical training and proven repair knowledge.' },
+  { value: '10+', label: 'Years experience', detail: 'Seasoned judgment for everyday fixes and difficult problems.' },
+  { value: '5.0', label: 'Star rating', detail: 'A track record built one local driver at a time.' },
+  { value: 'LOCAL', label: 'Independent', detail: 'Straight answers from a shop that calls Marshall home.' },
+];
+
+const reviewSlots = [
+  {
+    number: '01',
+    prompt: 'Add a verified review about Brandon’s honest diagnosis and clear communication.',
+    source: 'Customer name · Google',
+  },
+  {
+    number: '02',
+    prompt: 'Add a verified review about fair pricing and work completed the right way.',
+    source: 'Customer name · Facebook',
+  },
+  {
+    number: '03',
+    prompt: 'Add a verified review about friendly service and getting back on the road quickly.',
+    source: 'Customer name · Google',
+  },
+];
+
+const businessSchema = {
+  '@context': 'https://schema.org',
+  '@type': ['AutoRepair', 'LocalBusiness'],
+  '@id': 'https://rr3auto.com/#business',
+  name: 'Rural Route 3 Auto LLC',
+  image: new URL(waitingRoom.src, Astro.site).toString(),
+  url: 'https://rr3auto.com/',
+  telephone: '+15078287206',
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '2779 300th St',
+    addressLocality: 'Marshall',
+    addressRegion: 'MN',
+    postalCode: '56258',
+    addressCountry: 'US',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 44.4867007,
+    longitude: -95.7388543,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '07:30',
+      closes: '17:30',
+    },
+  ],
+  sameAs: ['https://www.facebook.com/RR3auto'],
+  areaServed: ['Marshall', 'Lyon County', 'Southwest Minnesota'],
+  description: 'ASE certified full-service auto repair and maintenance shop serving cars, trucks, and SUVs in Marshall, Minnesota.',
+};
+---
+
+<BaseLayout
+  title="Auto Repair Marshall MN | Rural Route 3 Auto LLC"
+  description="ASE certified auto repair in Marshall, Minnesota. Diagnostics, brakes, engine repair, maintenance, tires, and winter prep. Call Rural Route 3 Auto LLC."
+  socialImage={waitingRoom.src}
+>
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(businessSchema)} />
+
+  <header class="absolute inset-x-0 top-0 z-50 border-b border-ink/15 text-ink">
+    <div class="container-site flex h-[76px] items-center justify-between gap-4">
+      <a href="#top" class="flex items-center gap-3">
+        <span class="grid size-12 place-items-center overflow-hidden rounded-full border border-ink/20 bg-paper">
+          <Image
+            src={logo}
+            width={48}
+            height={48}
+            quality={70}
+            alt=""
+            class="size-full scale-125 object-cover"
+          />
+        </span>
+        <span>
+          <span class="block font-display text-[1.4rem] leading-none tracking-wide">Rural Route 3</span>
+          <span class="block text-[0.58rem] font-bold uppercase tracking-[0.24em] text-ink/75">Auto LLC · Marshall, MN</span>
+        </span>
+      </a>
+
+      <nav class="hidden items-center gap-7 text-[0.7rem] font-bold uppercase tracking-[0.13em] md:flex" aria-label="Main navigation">
+        <a href="#services" class="transition-colors hover:text-safety">Services</a>
+        <a href="#why-us" class="transition-colors hover:text-safety">Why us</a>
+        <a href="#reviews" class="transition-colors hover:text-safety">Reviews</a>
+        <a href="#location" class="transition-colors hover:text-safety">Find us</a>
+      </nav>
+
+      <a href="tel:+15078287206" class="hidden min-h-11 items-center gap-2 bg-safety px-4 text-xs font-extrabold uppercase tracking-wider text-ink sm:inline-flex">
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-2"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.4 2.7.7 4.2.7.7 0 1.2.5 1.2 1.2v3.9c0 .7-.5 1.2-1.2 1.2C10.4 22 2 13.6 2 3.2 2 2.5 2.5 2 3.2 2h4C7.8 2 8.3 2.5 8.3 3.2c0 1.5.2 2.9.7 4.2.1.4 0 .9-.3 1.2l-2.1 2.2Z" /></svg>
+        Call the shop
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="relative min-h-[760px] overflow-hidden bg-paper pb-16 pt-32 text-ink md:min-h-[860px] md:pt-40">
+      <div class="road-grid"></div>
+      <div class="noise"></div>
+      <div class="absolute -right-56 top-12 size-[36rem] rounded-full border border-ink/10 md:-right-32 md:size-[52rem]"></div>
+      <div class="absolute -right-36 top-32 size-[28rem] rounded-full border border-ink/10 md:-right-2 md:size-[40rem]"></div>
+      <svg aria-hidden="true" class="absolute -bottom-10 left-1/2 hidden h-[40rem] w-[58rem] -translate-x-1/2 opacity-[0.08] md:block" viewBox="0 0 900 640" fill="none">
+        <path d="M407 654C455 506 357 462 319 354c-39-111 22-205 158-361" stroke="#2f6f76" stroke-width="210" />
+        <path d="M407 654C455 506 357 462 319 354c-39-111 22-205 158-361" stroke="#fffaf0" stroke-width="192" />
+        <path d="M407 654C455 506 357 462 319 354c-39-111 22-205 158-361" stroke="#f68a3c" stroke-width="5" stroke-dasharray="30 26" />
+      </svg>
+
+      <div class="container-site relative z-10 grid min-w-0 grid-cols-1 items-center gap-12 lg:grid-cols-[1.08fr_.72fr] lg:gap-16">
+        <div class="min-w-0 max-w-4xl">
+          <div class="hero-kicker mb-7 flex flex-wrap items-center gap-3">
+            <span data-status class="inline-flex min-h-9 items-center gap-2 border border-ink/25 bg-white/60 px-3 text-[0.68rem] font-bold uppercase tracking-[0.13em]" aria-live="polite">
+              <span data-status-dot class="size-2 rounded-full bg-safety"></span>
+              <span data-status-text>Checking today’s hours…</span>
+            </span>
+            <span class="hidden text-[0.67rem] font-bold uppercase tracking-[0.14em] text-ink/75 sm:inline">Mon–Fri · 7:30–5:30</span>
+          </div>
+
+          <p class="hero-line eyebrow mb-5 text-safety">ASE certified · 10+ years experience</p>
+          <h1 class="hero-line display-title text-[clamp(3.45rem,14vw,8.2rem)]">
+            <span class="block">Rural Route</span>
+            <span class="block">3 Auto</span>
+            <span class="outline-text mt-2 block whitespace-nowrap text-[0.55em] tracking-[0.02em]">Marshall, Minnesota</span>
+          </h1>
+          <p class="hero-line mt-8 max-w-full break-words pr-2 text-lg leading-relaxed text-ink/80 md:max-w-xl md:pr-0 md:text-xl">
+            Full-service repair for the vehicles that work as hard as you do. Clear answers, capable hands, and no runaround.
+          </p>
+
+          <div class="hero-line mt-9 flex flex-col gap-4 sm:flex-row">
+            <a href="tel:+15078287206" class="button-primary">
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5 fill-none stroke-current stroke-2"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.4 2.7.7 4.2.7.7 0 1.2.5 1.2 1.2v3.9c0 .7-.5 1.2-1.2 1.2C10.4 22 2 13.6 2 3.2 2 2.5 2.5 2 3.2 2h4C7.8 2 8.3 2.5 8.3 3.2c0 1.5.2 2.9.7 4.2.1.4 0 .9-.3 1.2l-2.1 2.2Z" /></svg>
+              (507) 828-7206
+            </a>
+            <a href="#contact" class="button-secondary">
+              Tell us what’s wrong
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-2"><path d="m5 12 14 0m-5-5 5 5-5 5" /></svg>
+            </a>
+          </div>
+
+          <div class="hero-line mt-12 flex flex-wrap gap-x-5 gap-y-4 border-t border-ink/15 pt-6 text-sm text-ink/75 md:gap-x-8">
+            <span class="flex items-center gap-2"><strong class="font-display text-3xl font-normal text-safety">5.0</strong> star rated</span>
+            <span class="flex items-center gap-2"><strong class="font-display text-3xl font-normal text-ink">2779</strong> 300th St</span>
+            <span class="flex items-center gap-2"><strong class="font-display text-3xl font-normal text-ink">M–F</strong> weekdays</span>
+          </div>
+        </div>
+
+        <div class="hero-photo relative mx-auto min-w-0 w-full max-w-[30rem] lg:mx-0 lg:justify-self-end">
+          <div class="absolute -inset-3 translate-x-5 translate-y-5 border border-safety/60"></div>
+          <div class="relative aspect-[3/4] overflow-hidden border-[3px] border-ink bg-pine shadow-[16px_16px_0_#f68a3c]">
+            <Image
+              src={mechanicEngine}
+              alt="Professional mechanic working on an engine in a bright automotive workshop"
+              class="size-full object-cover object-[54%_center]"
+              width={540}
+              height={720}
+              widths={[360, 540]}
+              sizes="(min-width: 1024px) 30rem, calc(100vw - 2rem)"
+              quality={82}
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-pine via-pine/80 to-transparent p-6 pt-20">
+              <p class="font-display text-3xl tracking-wide text-cream">Serious skill. Straight answers.</p>
+              <p class="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-[#ffd3b4]">ASE certified auto repair</p>
+            </div>
+          </div>
+          <div class="absolute -left-5 top-10 bg-cream px-3 py-2 text-[0.64rem] font-black uppercase tracking-[0.15em] text-ink shadow-hard-small [writing-mode:vertical-rl] md:-left-7">
+            Welcome to the shop
+          </div>
+        </div>
+      </div>
+
+      <a href="#services" class="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 items-center gap-3 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-ink/75 md:flex">
+        Scroll for service <span class="h-px w-12 bg-ink/35"></span>
+      </a>
+    </section>
+
+    <div class="overflow-hidden border-y-2 border-ink bg-safety py-3" aria-hidden="true">
+      <div class="marquee-track flex w-max whitespace-nowrap font-display text-2xl uppercase tracking-[0.05em]">
+        {[0, 1].map(() => (
+          <span class="flex items-center">
+            Diagnostics <b class="mx-6">✦</b> Brakes <b class="mx-6">✦</b> Engine Repair <b class="mx-6">✦</b> Maintenance <b class="mx-6">✦</b> Winter Prep <b class="mx-6">✦</b> Tires & Alignment <b class="mx-6">✦</b> Cars · Trucks · SUVs <b class="mx-6">✦</b>
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <section id="services" class="relative overflow-hidden bg-cream py-24 md:py-32">
+      <div class="absolute right-0 top-16 font-display text-[15rem] leading-none text-ink/[0.025] md:text-[27rem]">03</div>
+      <div class="container-site relative">
+        <div class="reveal grid gap-7 md:grid-cols-[.65fr_1fr] md:items-end">
+          <div>
+            <p class="eyebrow text-rust">Full-service auto repair</p>
+            <h2 class="display-title mt-5 text-6xl md:text-8xl">Everything your ride needs.</h2>
+          </div>
+          <p class="max-w-xl text-base leading-relaxed text-ink/75 md:justify-self-end md:text-lg">
+            From a glowing dash light to the maintenance that prevents one, get practical repair and service for cars, trucks, and SUVs—without the dealership shuffle.
+          </p>
+        </div>
+
+        <div class="reveal mt-14 grid gap-3 md:h-[34rem] md:grid-cols-12 md:grid-rows-2">
+          <figure class="group relative min-h-[18rem] overflow-hidden border border-ink/20 md:col-span-7 md:row-span-2 md:min-h-0">
+            <Image
+              src={carOnLift}
+              alt="SUV raised on a hydraulic lift inside a full-service automotive repair shop"
+              class="size-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              width={1120}
+              height={630}
+              widths={[480, 800, 1120]}
+              sizes="(min-width: 768px) 58vw, calc(100vw - 1.25rem)"
+              quality={76}
+              loading="lazy"
+            />
+            <figcaption class="absolute bottom-4 left-4 bg-paper/95 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-ink shadow-hard-small">Full-service repair</figcaption>
+          </figure>
+          <figure class="group relative min-h-[16rem] overflow-hidden border border-ink/20 md:col-span-5 md:min-h-0">
+            <Image
+              src={engineDetail}
+              alt="Mechanic using a hand tool to inspect a vehicle engine under the hood"
+              class="size-full object-cover object-[center_48%] transition-transform duration-700 group-hover:scale-[1.03]"
+              width={700}
+              height={420}
+              widths={[400, 700]}
+              sizes="(min-width: 768px) 42vw, calc(100vw - 1.25rem)"
+              quality={76}
+              loading="lazy"
+            />
+            <figcaption class="absolute bottom-4 left-4 bg-paper/95 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-ink shadow-hard-small">Diagnostics & engine work</figcaption>
+          </figure>
+          <figure class="group relative min-h-[16rem] overflow-hidden border border-ink/20 md:col-span-5 md:min-h-0">
+            <Image
+              src={tireService}
+              alt="Automotive technician servicing a wheel on a vehicle in a repair bay"
+              class="size-full object-cover object-[center_60%] transition-transform duration-700 group-hover:scale-[1.03]"
+              width={700}
+              height={420}
+              widths={[400, 700]}
+              sizes="(min-width: 768px) 42vw, calc(100vw - 1.25rem)"
+              quality={76}
+              loading="lazy"
+            />
+            <figcaption class="absolute bottom-4 left-4 bg-paper/95 px-4 py-3 text-xs font-black uppercase tracking-[0.14em] text-ink shadow-hard-small">Tires & alignment</figcaption>
+          </figure>
+        </div>
+        <p class="mt-3 text-[0.62rem] font-bold uppercase tracking-[0.12em] text-ink/75">Sample service photography from Pexels · replace with real shop photos anytime</p>
+
+        <div class="mt-10 grid gap-px bg-ink/20 sm:grid-cols-2 lg:grid-cols-4">
+          {services.map((service) => (
+            <article class:list={['service-card reveal', service.className]}>
+              <div class="flex items-start justify-between">
+                <span class="service-icon">
+                  <svg aria-hidden="true" viewBox="0 0 24 24" class="size-7 fill-none stroke-current stroke-[1.5]" stroke-linecap="round" stroke-linejoin="round">
+                    <path d={service.path} />
+                  </svg>
+                </span>
+                <span class="font-display text-2xl text-current/30">{service.number}</span>
+              </div>
+              <div class="absolute inset-x-6 bottom-6">
+                <h3 class="font-display text-4xl tracking-wide">{service.title}</h3>
+                <p class="mt-3 text-sm leading-relaxed opacity-80">{service.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="why-us" class="relative overflow-hidden bg-[#dcebea] py-24 text-ink md:py-32">
+      <div class="noise"></div>
+      <div class="container-site relative">
+        <div class="grid gap-14 lg:grid-cols-[.82fr_1.18fr] lg:gap-20">
+          <div class="reveal">
+            <p class="eyebrow text-safety">Why Rural Route 3</p>
+            <h2 class="display-title mt-5 text-6xl md:text-8xl">Good work travels by word of mouth.</h2>
+            <p class="mt-7 max-w-lg text-lg leading-relaxed text-ink/80">
+              Around here, trust is earned in the details: a diagnosis that makes sense, an estimate you understand, and a repair you can depend on.
+            </p>
+            <div class="mt-9 border-l-4 border-safety pl-5">
+              <p class="font-display text-3xl tracking-wide">“We’ll tell you what it needs—and what can wait.”</p>
+              <p class="mt-2 text-xs font-bold uppercase tracking-[0.16em] text-ink/75">The Rural Route 3 approach</p>
+            </div>
+            <figure class="relative mt-10 overflow-hidden border-2 border-ink bg-paper p-2 shadow-hard">
+              <Image
+                src={waitingRoom}
+                alt="The real Rural Route 3 Auto waiting room with the shop sign and two dogs resting on the chairs"
+                class="aspect-[4/3] size-full object-cover object-center"
+                width={526}
+                height={395}
+                widths={[360, 526]}
+                sizes="(min-width: 1024px) 32vw, calc(100vw - 2.5rem)"
+                quality={78}
+                loading="lazy"
+              />
+              <figcaption class="absolute bottom-5 left-5 bg-safety px-3 py-2 text-[0.63rem] font-black uppercase tracking-[0.14em] text-ink">The real waiting room</figcaption>
+            </figure>
+          </div>
+
+          <div class="grid gap-px bg-ink/15 sm:grid-cols-2">
+            {credentials.map((item) => (
+              <article class="reveal min-h-64 bg-paper/75 p-7 md:p-8">
+                <p class="display-title text-6xl text-rust md:text-7xl">{item.value}</p>
+                <h3 class="mt-8 text-xs font-black uppercase tracking-[0.18em] text-ink">{item.label}</h3>
+                <p class="mt-3 text-sm leading-relaxed text-ink/75">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        <div class="reveal mt-20 grid items-center gap-8 border-t border-ink/15 pt-12 md:grid-cols-[1fr_auto]">
+          <p class="display-title max-w-4xl text-5xl md:text-7xl">Not sure what that noise is? <span class="text-rust">That’s what we’re here for.</span></p>
+          <a href="tel:+15078287206" class="button-primary shrink-0">Talk to a mechanic</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="bg-paper py-24 md:py-32">
+      <div class="container-site">
+        <div class="reveal flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p class="eyebrow text-rust">Five-star reputation</p>
+            <h2 class="display-title mt-5 text-6xl md:text-8xl">Neighbors know best.</h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <span class="font-display text-7xl text-ink">5.0</span>
+            <span><span class="block text-xl tracking-[0.18em] text-rust" aria-label="5 out of 5 stars">★★★★★</span><span class="mt-1 block text-[0.64rem] font-bold uppercase tracking-[0.15em] text-ink/75">Across local listings</span></span>
+          </div>
+        </div>
+
+        <div class="mt-14 grid border-l border-t border-ink/20 md:grid-cols-3">
+          {reviewSlots.map((review) => (
+            <article class="reveal flex min-h-[22rem] flex-col border-b border-r border-ink/20 p-7 md:p-9">
+              <div class="flex items-center justify-between">
+                <span class="text-sm tracking-[0.16em] text-rust" aria-hidden="true">★★★★★</span>
+                <span class="font-display text-3xl text-ink/70">{review.number}</span>
+              </div>
+              <blockquote class="mt-12 font-display text-3xl leading-tight tracking-wide md:text-4xl">“{review.prompt}”</blockquote>
+              <footer class="mt-auto border-t border-ink/15 pt-5 text-[0.68rem] font-bold uppercase tracking-[0.13em] text-ink/75">{review.source}</footer>
+            </article>
+          ))}
+        </div>
+        <p class="mt-4 text-xs text-ink/75">Preview testimonial slots — replace with verified customer reviews before launch.</p>
+      </div>
+    </section>
+
+    <section id="location" class="overflow-hidden bg-safety">
+      <div class="grid lg:grid-cols-2">
+        <div class="reveal order-2 p-5 sm:p-8 lg:order-1 lg:p-16 xl:p-24">
+          <p class="eyebrow">Worth the short drive</p>
+          <h2 class="display-title mt-5 text-6xl md:text-8xl">Five miles from downtown. Zero dealership hassle.</h2>
+
+          <div class="mt-10 grid gap-7 border-y border-ink/30 py-8 sm:grid-cols-2">
+            <div>
+              <p class="text-[0.66rem] font-black uppercase tracking-[0.16em] text-ink">Find the shop</p>
+              <address class="mt-3 not-italic text-lg font-semibold leading-relaxed">2779 300th St<br />Marshall, MN 56258</address>
+            </div>
+            <div>
+              <p class="text-[0.66rem] font-black uppercase tracking-[0.16em] text-ink">Shop hours</p>
+              <p class="mt-3 text-lg font-semibold leading-relaxed">Mon–Fri, 7:30 AM–5:30 PM<br />Saturday & Sunday, closed</p>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <p class="text-[0.66rem] font-black uppercase tracking-[0.16em] text-ink">From downtown Marshall</p>
+            <p class="mt-3 max-w-xl leading-relaxed text-ink">
+              Head north on 4th Street, west on Marshall Street, then follow North 7th out of town. Turn right onto East Erie Road/290th Street, left on MN-23, then right on 300th Street. The shop is on your right—about an 11-minute drive.
+            </p>
+          </div>
+
+          <div class="mt-9 flex flex-col gap-4 sm:flex-row">
+            <a href="https://www.google.com/maps/dir/?api=1&destination=2779+300th+St%2C+Marshall%2C+MN+56258" target="_blank" rel="noopener noreferrer" class="button-dark">
+              Get directions
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="size-4 fill-none stroke-current stroke-2"><path d="m5 12 14 0m-5-5 5 5-5 5" /></svg>
+            </a>
+            <a href="tel:+15078287206" class="button-primary">Call before you head out</a>
+          </div>
+        </div>
+
+        <div class="relative order-1 min-h-[28rem] border-b-2 border-ink lg:order-2 lg:min-h-[54rem] lg:border-b-0 lg:border-l-2">
+          <iframe
+            class="absolute inset-0 size-full grayscale-[35%] contrast-[1.08]"
+            title="Map showing Rural Route 3 Auto at 2779 300th Street in Marshall, Minnesota"
+            src="https://www.google.com/maps?q=2779+300th+St,+Marshall,+MN+56258&output=embed"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+          <div class="pointer-events-none absolute left-5 top-5 border-2 border-ink bg-paper px-4 py-3 shadow-hard-small">
+            <p class="font-display text-2xl">Rural Route 3 Auto</p>
+            <p class="text-[0.62rem] font-bold uppercase tracking-[0.14em] text-ink/80">44.4867° N · 95.7389° W</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="relative overflow-hidden bg-pine py-24 text-cream md:py-32">
+      <div class="noise"></div>
+      <div class="absolute -right-10 top-0 font-display text-[18rem] leading-none text-white/[0.025] md:text-[34rem]">R3</div>
+      <div class="container-site relative grid gap-14 lg:grid-cols-[.75fr_1.25fr] lg:gap-24">
+        <div class="reveal">
+          <p class="eyebrow text-safety">Start the conversation</p>
+          <h2 class="display-title mt-5 text-6xl md:text-8xl">What’s your vehicle telling you?</h2>
+          <p class="mt-7 max-w-lg text-lg leading-relaxed text-white/80">
+            Send the basics and we’ll follow up during shop hours. If you’re stranded or need a quick answer, call—that’s always the fastest route.
+          </p>
+
+          <a href="tel:+15078287206" class="mt-10 flex items-center gap-4 border-t border-white/15 pt-7">
+            <span class="grid size-12 place-items-center rounded-full bg-safety text-ink">
+              <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5 fill-none stroke-current stroke-2"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.4 2.7.7 4.2.7.7 0 1.2.5 1.2 1.2v3.9c0 .7-.5 1.2-1.2 1.2C10.4 22 2 13.6 2 3.2 2 2.5 2.5 2 3.2 2h4C7.8 2 8.3 2.5 8.3 3.2c0 1.5.2 2.9.7 4.2.1.4 0 .9-.3 1.2l-2.1 2.2Z" /></svg>
+            </span>
+            <span><span class="block text-[0.64rem] font-bold uppercase tracking-[0.16em] text-white/75">Call the shop</span><span class="font-display text-4xl tracking-wide text-white">(507) 828-7206</span></span>
+          </a>
+        </div>
+
+        <form id="contact-form" action="/api/contact" method="post" class="reveal border border-white/20 bg-white/[0.035] p-6 md:p-10" novalidate>
+          <div class="grid gap-x-8 gap-y-7 md:grid-cols-2">
+            <div class="form-field">
+              <label for="name">Your name *</label>
+              <input id="name" name="name" type="text" autocomplete="name" placeholder="First and last name" maxlength="80" required />
+            </div>
+            <div class="form-field">
+              <label for="phone">Phone *</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(507) 555-0123" maxlength="30" required />
+            </div>
+            <div class="form-field md:col-span-2">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="120" />
+            </div>
+            <div class="form-field">
+              <label for="vehicleYear">Vehicle year *</label>
+              <input id="vehicleYear" name="vehicleYear" type="text" inputmode="numeric" placeholder="2018" minlength="4" maxlength="4" required />
+            </div>
+            <div class="form-field">
+              <label for="vehicleMakeModel">Vehicle make & model *</label>
+              <input id="vehicleMakeModel" name="vehicleMakeModel" type="text" placeholder="Ford F-150" maxlength="100" required />
+            </div>
+            <div class="form-field md:col-span-2">
+              <label for="issue">What’s going on? *</label>
+              <textarea id="issue" name="issue" placeholder="Tell us what you hear, see, smell, or feel—and when it started." minlength="10" maxlength="2000" required></textarea>
+            </div>
+          </div>
+
+          <div class="absolute -left-[9999px]" aria-hidden="true">
+            <label for="website">Leave this field empty</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <p class="max-w-sm text-xs leading-relaxed text-white/75">Submitting this form does not confirm an appointment. The shop will contact you to discuss availability.</p>
+            <button id="submit-button" type="submit" class="button-primary shrink-0 disabled:cursor-wait disabled:opacity-60">Send to the shop</button>
+          </div>
+          <p id="form-status" class="mt-5 hidden border px-4 py-3 text-sm" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#245a69] pb-8 text-cream">
+    <div class="container-site border-t border-white/15 pt-10">
+      <div class="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
+        <div>
+          <a href="#top" class="font-display text-4xl tracking-wide">Rural Route 3 Auto LLC</a>
+          <p class="mt-3 max-w-sm text-sm leading-relaxed text-white/75">ASE certified automotive repair for Marshall and southwest Minnesota.</p>
+        </div>
+        <div class="text-sm">
+          <p class="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#ffd3b4]">Visit</p>
+          <address class="mt-3 not-italic leading-relaxed text-white/80">2779 300th St<br />Marshall, MN 56258</address>
+        </div>
+        <div class="text-sm">
+          <p class="text-[0.64rem] font-bold uppercase tracking-[0.16em] text-[#ffd3b4]">Call & hours</p>
+          <a href="tel:+15078287206" class="mt-3 block font-semibold text-white">(507) 828-7206</a>
+          <p class="mt-1 leading-relaxed text-white/80">Mon–Fri: 7:30 AM–5:30 PM<br />Sat–Sun: Closed</p>
+        </div>
+      </div>
+      <div class="mt-12 flex flex-col gap-4 border-t border-white/10 pt-6 text-[0.64rem] font-bold uppercase tracking-[0.13em] text-white/80 sm:flex-row sm:items-center sm:justify-between">
+        <p>© {new Date().getFullYear()} Rural Route 3 Auto LLC. All rights reserved.</p>
+        <a href="https://www.facebook.com/RR3auto" target="_blank" rel="noopener noreferrer" class="transition-colors hover:text-safety">Follow on Facebook ↗</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="tel:+15078287206" class="fixed inset-x-0 bottom-0 z-[60] flex h-[4.7rem] items-center justify-between border-t-2 border-ink bg-safety px-5 text-ink shadow-[0_-8px_24px_rgba(0,0,0,.18)] md:hidden">
+    <span>
+      <span class="block text-[0.6rem] font-black uppercase tracking-[0.18em]">Need the shop?</span>
+      <span class="font-display text-2xl tracking-wide">(507) 828-7206</span>
+    </span>
+    <span class="ml-4 grid size-11 shrink-0 place-items-center rounded-full bg-pine text-[#ffd3b4]">
+      <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5 fill-none stroke-current stroke-2"><path d="M6.6 10.8a15.5 15.5 0 0 0 6.6 6.6l2.2-2.2c.3-.3.8-.4 1.2-.2 1.3.4 2.7.7 4.2.7.7 0 1.2.5 1.2 1.2v3.9c0 .7-.5 1.2-1.2 1.2C10.4 22 2 13.6 2 3.2 2 2.5 2.5 2 3.2 2h4C7.8 2 8.3 2.5 8.3 3.2c0 1.5.2 2.9.7 4.2.1.4 0 .9-.3 1.2l-2.1 2.2Z" /></svg>
+    </span>
+  </a>
+
+  <script>
+    const updateShopStatus = () => {
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Chicago',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hourCycle: 'h23',
+      }).formatToParts(new Date());
+
+      const values = Object.fromEntries(parts.map(({ type, value }) => [type, value]));
+      const weekday = values.weekday;
+      const minutes = Number(values.hour) * 60 + Number(values.minute);
+      const weekdays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+      const isWeekday = weekdays.includes(weekday);
+      const isOpen = isWeekday && minutes >= 450 && minutes < 1050;
+
+      let text = 'Closed now · opens Monday at 7:30 AM';
+      if (isOpen) text = 'Open now · closes at 5:30 PM';
+      else if (isWeekday && minutes < 450) text = 'Closed now · opens at 7:30 AM';
+      else if (weekday !== 'Fri' && weekday !== 'Sat' && weekday !== 'Sun') text = 'Closed now · opens tomorrow at 7:30 AM';
+
+      document.querySelectorAll<HTMLElement>('[data-status-text]').forEach((element) => {
+        element.textContent = text;
+      });
+      document.querySelectorAll<HTMLElement>('[data-status-dot]').forEach((element) => {
+        element.classList.toggle('bg-safety', isOpen);
+        element.classList.toggle('bg-rust', !isOpen);
+      });
+    };
+
+    updateShopStatus();
+    window.setInterval(updateShopStatus, 60_000);
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const revealElements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+      const importGsap = () => import('gsap').then(({ default: gsap }) => gsap);
+      let gsapPromise: ReturnType<typeof importGsap> | undefined;
+      const getGsap = () => {
+        gsapPromise ??= importGsap();
+        return gsapPromise;
+      };
+
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(async (entry) => {
+          if (!entry.isIntersecting) return;
+          const element = entry.target as HTMLElement;
+          revealObserver.unobserve(element);
+          const gsap = await getGsap();
+          gsap.fromTo(element, { y: 32 }, { y: 0, duration: 0.7, ease: 'power2.out', clearProps: 'transform' });
+        });
+      }, { rootMargin: '0px 0px -6% 0px', threshold: 0.08 });
+
+      revealElements.forEach((element) => revealObserver.observe(element));
+    }
+
+    const form = document.querySelector<HTMLFormElement>('#contact-form');
+    const submitButton = document.querySelector<HTMLButtonElement>('#submit-button');
+    const formStatus = document.querySelector<HTMLElement>('#form-status');
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity() || !submitButton || !formStatus) return;
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending…';
+      formStatus.classList.add('hidden');
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'We could not send your message.');
+
+        form.reset();
+        formStatus.textContent = result.message;
+        formStatus.className = 'mt-5 border border-safety/60 bg-safety/10 px-4 py-3 text-sm text-safety';
+      } catch (error) {
+        formStatus.textContent = error instanceof Error ? error.message : 'Something went wrong. Please call the shop instead.';
+        formStatus.className = 'mt-5 border border-rust/70 bg-rust/10 px-4 py-3 text-sm text-[#ff9c86]';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Send to the shop';
+      }
+    });
+  </script>
+</BaseLayout>
